@@ -34,6 +34,9 @@
                 </div>
               </div>
               <% else %>
+              
+              <%#= button_to "ADD TO CART", {action: "add_to_cart", id: product['id']}, class: 'App_shopItemButton_23FO1'%>
+              
               <div onclick="addToCart(this)" data-myvalue="<%= product['id'] %>" class="App_shopItemButton_23FO1">
                 <p>ADD TO CART</p>
               </div>
@@ -50,7 +53,7 @@
     </div>
     <% $total = 0 %>
     <% @cart.each do |cart_item| %>
-      <% $total += @shoes[cart_item[0] - 1]['price'] * cart_item[1] %>
+      <% $total += @shoes[cart_item[0].to_i - 1]['price'] * cart_item[1] %>
     <% end %>
     <div class="App_cardTitle_29nyq">Your cart
       <span class="App_cardTitleAmount_17QFR">$<%= $total %></span>
@@ -62,15 +65,15 @@
           <% @cart.each do |cart_item| %>
             <div class="App_cartItem_lfA9I">
               <div class="App_cartItemLeft_1HqDk cartItemLeft">
-                <div class="App_cartItemImage_1rLvq cartItemImage" style="background-color: <%= @shoes[cart_item[0] - 1]['color'] %>;">
+                <div class="App_cartItemImage_1rLvq cartItemImage" style="background-color: <%= @shoes[cart_item[0].to_i - 1]['color'] %>;">
                   <div class="App_cartItemImageBlock_wRE4E">
-                    <%= image_tag @shoes[cart_item[0] - 1]['image'] %>
+                    <%= image_tag @shoes[cart_item[0].to_i - 1]['image'] %>
                   </div>
                 </div>
               </div>
               <div class="App_cartItemRight_2LNcC cartItemRight">
-                <div class="App_cartItemName_3he6M cartItemName"><%= @shoes[cart_item[0] - 1]['name'] %></div>
-                <div class="App_cartItemPrice_R0sr2 cartItemPrice">$<%= @shoes[cart_item[0] - 1]['price'] %></div>
+                <div class="App_cartItemName_3he6M cartItemName"><%= @shoes[cart_item[0].to_i - 1]['name'] %></div>
+                <div class="App_cartItemPrice_R0sr2 cartItemPrice">$<%= @shoes[cart_item[0].to_i - 1]['price'] %></div>
                 <div class="App_cartItemActions_13kia cartItemActions">
                   <div class="App_cartItemCount_1GCCN cartItemCount">
                     <div class="App_cartItemCountButton_Gr8VG">-</div>
@@ -89,25 +92,23 @@
     </div>
   </div>
 </div>
-<div id = 'addData'>
-  <%= $test %>
-</div>
 
 </body>
 <script>
+window.onload = (event) => {
+  var data = JSON.stringify('<%= @cart.to_a %>');
+  sessionStorage.setItem('cart', data)
+};
+
 function addToCart(data) {
   var id = data.getAttribute("data-myvalue");
-  // alert('<%= $test %>');
-  // return('<%= $test[3] = 1 %>');
-  // alert('<%= $test %>');
+  cart = new Array();
+  cart = JSON.parse(sessionStorage.getItem('cart'));
+  
+  cart.push([id, 1]);
 
-  // var addToCart = $(#addData);
-  // addToCart.append('<%= @cart[3] = 1 %>');
-  // alert('<%= @cart %>');
-
-  return '<div><%= $test[' {} '] = 1 %></div>'
+  sessionStorage.setItem('cart', JSON.stringify(cart));
 }
-
 
 </script>
 </html>

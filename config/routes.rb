@@ -4,6 +4,6 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
   root "pages#home"
-
-  get '/'
+  get "/add_to_cart", to: "pages#add_to_cart"
+  post '/add_to_cart/:product_id', to: 'pages#add_to_cart'
 end
