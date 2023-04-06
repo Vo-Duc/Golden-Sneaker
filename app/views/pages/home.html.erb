@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <% @title = "Golden Sneaker" %>
+  <%= stylesheet_link_tag "gsneaker.css" %>
+</head>
+
+<body>
+<div class="App_mainContent_12BYb">
+  <div class="App_card_38zmH">
+    <div class="App_cardTop_3hHIG">
+      <%= image_tag "nike.png", class: "App_cardTopLogo_2ho9K" %>
+    </div>
+    <div class="App_cardTitle_29nyq">Our Products</div>
+    <div class="App_cardBody_1tfYc">
+      <div>
+        <% @shoes.each do |product| %>
+          <div class="App_shopItem_3FgVU">
+            <div class="App_shopItemImage_341iU" style="background-color: <%= product['color'] %>;">
+              <%= image_tag product['image'] %>
+            </div>
+            <div class="App_shopItemName_1_FJR"><%= product['name'] %></div>
+            <div class="App_shopItemDescription_1EIVK"><%= product['description'] %></div>
+            <div class="App_shopItemBottom_3401_">
+              <div class="App_shopItemPrice_2SLiG">$<%= product['price'] %></div>
+              <% if @cart[product['id']] != nil && @cart[product['id']] != 0 %>
+              <div class="App_inactive_19f0W App_shopItemButton_23FO1">
+                <div class="App_shopItemButtonCover_1bH2R">
+                  <div class="App_shopItemButtonCoverCheckIcon_18IzJ"></div>
+                </div>
+              </div>
+              <% else %>
+              <div onclick="addToCart(this)" data-myvalue="<%= product['id'] %>" class="App_shopItemButton_23FO1">
+                <p>ADD TO CART</p>
+              </div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="App_card_38zmH">
+    <div class="App_cardTop_3hHIG">
+      <%= image_tag "nike.png", class: "App_cardTopLogo_2ho9K" %>
+    </div>
+    <% $total = 0 %>
+    <% @cart.each do |cart_item| %>
+      <% $total += @shoes[cart_item[0] - 1]['price'] * cart_item[1] %>
+    <% end %>
+    <div class="App_cardTitle_29nyq">Your cart
+      <span class="App_cardTitleAmount_17QFR">$<%= $total %></span>
+    </div>
+    <div class="App_cardBody_1tfYc">
+    <!---->
+      <div>
+        <div>
+          <% @cart.each do |cart_item| %>
+            <div class="App_cartItem_lfA9I">
+              <div class="App_cartItemLeft_1HqDk cartItemLeft">
+                <div class="App_cartItemImage_1rLvq cartItemImage" style="background-color: <%= @shoes[cart_item[0] - 1]['color'] %>;">
+                  <div class="App_cartItemImageBlock_wRE4E">
+                    <%= image_tag @shoes[cart_item[0] - 1]['image'] %>
+                  </div>
+                </div>
+              </div>
+              <div class="App_cartItemRight_2LNcC cartItemRight">
+                <div class="App_cartItemName_3he6M cartItemName"><%= @shoes[cart_item[0] - 1]['name'] %></div>
+                <div class="App_cartItemPrice_R0sr2 cartItemPrice">$<%= @shoes[cart_item[0] - 1]['price'] %></div>
+                <div class="App_cartItemActions_13kia cartItemActions">
+                  <div class="App_cartItemCount_1GCCN cartItemCount">
+                    <div class="App_cartItemCountButton_Gr8VG">-</div>
+                    <div class="App_cartItemCountNumber_1Evq9"><%= cart_item[1] %></div>
+                    <div class="App_cartItemCountButton_Gr8VG">+</div>
+                  </div>
+                  <div class="App_cartItemRemove_1GiLR cartItemRemove">
+                    <%= image_tag "trash.png", class: "App_cardTopLogo_2ho9K" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id = 'addData'>
+  <%= $test %>
+</div>
+
+</body>
+<script>
+function addToCart(data) {
+  var id = data.getAttribute("data-myvalue");
+  // alert('<%= $test %>');
+  // return('<%= $test[3] = 1 %>');
+  // alert('<%= $test %>');
+
+  // var addToCart = $(#addData);
+  // addToCart.append('<%= @cart[3] = 1 %>');
+  // alert('<%= @cart %>');
+
+  return '<div><%= $test[' {} '] = 1 %></div>'
+}
+
+
+</script>
+</html>
